@@ -51,6 +51,11 @@ fi
 echo "Installing zsh..."
 sudo apt install -y zsh
 
+echo "Installing Oh My Zsh..."
+# RUNZSH=no prevents the script from immediately launching zsh.
+# CHSH=no prevents the script from trying to change your default shell,
+RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 echo "Setting zsh as default shell"
 chsh -s $(which zsh)
 
