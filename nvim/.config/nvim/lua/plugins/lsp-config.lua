@@ -11,6 +11,12 @@ return {
     lazy = false,
     opts = {
       auto_install = true,
+      ensure_installed = {
+        "lua_ls",
+        "bash-language-server",
+        "docker-compose-language-service",
+        "prettierd"
+      },
       automatic_enable = {
         "lua_ls",
         "bash-language-server",
