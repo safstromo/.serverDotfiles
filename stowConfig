@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Folders to stow
+CONFIG_FOLDERS="nvim tmux zsh"
+
+for folder in $CONFIG_FOLDERS
+do
+  echo "Stowing folder: $folder"
+  stow -t "$HOME" --adopt "$folder"
+done

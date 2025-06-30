@@ -1,0 +1,56 @@
+#!/bin/bash
+
+echo "Updating package lists..."
+sudo apt update -y 
+
+echo "Installing ripgrep..."
+sudo apt install -y ripgrep 
+
+echo "Installing neovim build prerequisites..."
+sudo apt-get install -y ninja-build gettext cmake unzip curl git
+
+echo "Building nvim"
+cd "$HOME"
+git clone https://github.com/neovim/neovim
+cd neovim
+git checkout stable
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+cd build
+cpack -G DEB
+sudo dpkg -i nvim-linux64.deb
+nvim --version
+
+echo "Cleaning up Neovim build directory..."
+rm -rf $HOME/neovim
+
+cd $HOME/.serverDotfiles
+
+echo "Installing htop..."
+sudo apt install -y htop
+
+echo "Installing tldr..."
+sudo apt install -y tldr
+
+echo "Installing tmux..."
+sudo apt install -y tmux
+
+echo "Cloning TPM..."
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+else
+    echo "TPM already cloned, skipping."
+fi
+
+echo "Installing zsh..."
+sudo apt install -y zsh
+
+echo "Setting zsh as default shell"
+chsh -s $(which zsh)
+
+echo "Running stowConfig script..."
+sudo apt install -y stow
+chmod +x ./stowConfig
+./stowConfig
+
+echo "Installation complete relogon.."
+
