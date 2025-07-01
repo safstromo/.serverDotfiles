@@ -65,6 +65,10 @@ RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/
 echo "Setting zsh as default shell"
 chsh -s $(which zsh)
 
+
+echo "Removing existing .zshrc before stow..."
+rm "$HOME/.zshrc"
+
 echo "Running stowConfig script..."
 sudo apt install -y stow
 chmod +x ./stowConfig
