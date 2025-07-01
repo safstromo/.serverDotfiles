@@ -101,6 +101,8 @@ source $ZSH/oh-my-zsh.sh
 #
 alias vi='nvim'
 alias oldvim='vi'
+alias bat="batcat"
+
 export EDITOR='nvim'
 
 # Enable vi mode
