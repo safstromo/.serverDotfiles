@@ -6,6 +6,12 @@ sudo apt update -y
 echo "Installing ripgrep..."
 sudo apt install -y ripgrep 
 
+echo "Installing xclip..."
+sudo apt install -y xclip
+
+echo "Installing jq..."
+sudo apt install -y jq 
+
 echo "Installing neovim build prerequisites..."
 sudo apt-get install -y ninja-build gettext cmake unzip curl git
 
