@@ -6,8 +6,21 @@ sudo apt update -y
 echo "Installing ripgrep..."
 sudo apt install -y ripgrep 
 
+echo "Installing xclip..."
+sudo apt install -y xclip
+
+echo "Installing jq..."
+sudo apt install -y jq 
+
 echo "Installing neovim build prerequisites..."
 sudo apt-get install -y ninja-build gettext cmake unzip curl git
+
+echo "Installing node and npm"
+curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh
+sudo -E bash nodesource_setup.sh
+sudo apt-get install -y nodejs
+
+sudo rm nodesource_setup.sh
 
 echo "Building nvim"
 cd "$HOME"
@@ -17,7 +30,7 @@ git checkout stable
 make CMAKE_BUILD_TYPE=RelWithDebInfo
 cd build
 cpack -G DEB
-sudo dpkg -i nvim-linux64.deb
+sudo dpkg -i nvim-linux-x86_64.deb
 nvim --version
 
 echo "Cleaning up Neovim build directory..."
@@ -30,6 +43,9 @@ sudo apt install -y htop
 
 echo "Installing tldr..."
 sudo apt install -y tldr
+
+echo "Installing bat..."
+sudo apt install -y bat
 
 echo "Installing tmux..."
 sudo apt install -y tmux
@@ -44,8 +60,17 @@ fi
 echo "Installing zsh..."
 sudo apt install -y zsh
 
+echo "Installing Oh My Zsh..."
+# RUNZSH=no prevents the script from immediately launching zsh.
+# CHSH=no prevents the script from trying to change your default shell,
+RUNZSH=no CHSH=no sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 echo "Setting zsh as default shell"
 chsh -s $(which zsh)
+
+
+echo "Removing existing .zshrc before stow..."
+rm "$HOME/.zshrc"
 
 echo "Running stowConfig script..."
 sudo apt install -y stow
